@@ -1,0 +1,255 @@
+:root {
+    --bg-color: #1a1a2e;
+    --primary-color: #ff0055;
+    --secondary-color: #00f2ff;
+    --text-color: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+    --font-main: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    /* Prevent selection while dragging */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 800px;
+    height: 90vh;
+    /* Allow some spacing */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#game-header h1 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#level-indicator {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+#game-area {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Screens */
+#start-screen,
+#level-container {
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#start-screen.active {
+    display: flex;
+}
+
+#level-container.active {
+    display: flex;
+}
+
+/* Buttons */
+button {
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-family: var(--font-main);
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), #ff5e8e);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 0, 85, 0.4);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 0, 85, 0.6);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Feedback Overlay */
+#feedback-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    border-radius: 15px;
+    opacity: 0;
+    pointer-events: none;
+    /* transparent when hidden */
+    transition: opacity 0.3s ease;
+}
+
+#feedback-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#feedback-overlay h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#feedback-overlay .hidden {
+    display: none;
+}
+
+/* Animations */
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+/* Draggable items generic style */
+.draggable {
+    cursor: grab;
+    transition: transform 0.1s;
+}
+
+.draggable.dragging {
+    cursor: grabbing;
+    opacity: 0.8;
+    z-index: 999;
+}
+
+/* New Logic Effects */
+.floating-text {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.5rem;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+    z-index: 2000;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(1.5);
+    }
+}
+
+.gold-aura {
+    filter: drop-shadow(0 0 20px gold);
+    animation: pulseGold 1s infinite alternate;
+}
+
+@keyframes pulseGold {
+    from {
+        filter: drop-shadow(0 0 10px gold);
+    }
+
+    to {
+        filter: drop-shadow(0 0 30px #ffd700);
+    }
+}
