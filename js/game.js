@@ -58,6 +58,13 @@ class Game {
         this.retryBtn.addEventListener('click', () => {
             this.startLevel(this.currentLevelIndex);
         });
+
+        const menuBtn = document.getElementById('menu-btn');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                this.returnToMenu();
+            });
+        }
     }
 
     registerLevel(levelClass) {
@@ -65,15 +72,19 @@ class Game {
     }
 
     async startLevel(index) {
-        if (index < 0 || index >= this.levels.length) return;
-        this.currentLevelIndex = index;
+        // If index is out of bounds (completed game)
+        if (index >= this.levels.length) {
+            this.showFeedback("Game Tamat! 🏆", false, false, true); // Special Game Completed state
+            return;
+        }
 
+        if (index < 0) return;
+
+        this.currentLevelIndex = index;
         this.startScreen.classList.remove('active');
         this.container.classList.add('active');
 
         // Logic to determine if level has lives
-        // Level 1 (idx 0) & 5 (idx 4) -> NO lives
-        // Others -> YES lives
         const hasLives = ![0, 4].includes(index);
         this.updateHeaderUI(index + 1, hasLives);
 
@@ -114,35 +125,50 @@ class Game {
     }
 
     handleWin() {
-        this.showFeedback("Success!", true);
+        // Check if this was the last level
+        if (this.currentLevelIndex >= this.levels.length - 1) {
+            this.showFeedback("Game Tamat! 🏆", false, false, true);
+        } else {
+            this.showFeedback("Hebat! 🎉", true);
+        }
     }
 
     handleLose() {
-        this.showFeedback("Failed!", false, true);
+        this.showFeedback("Yah Kalah! 💀", false, true);
     }
 
     nextLevel() {
         this.startLevel(this.currentLevelIndex + 1);
     }
 
-    showFeedback(message, isWin, isRetry = false) {
+    returnToMenu() {
+        this.hideFeedback();
+        this.container.innerHTML = '';
+        this.container.classList.remove('active');
+        this.startScreen.classList.add('active');
+        this.updateHeaderUI(null);
+    }
+
+    showFeedback(message, isWin, isRetry = false, isGameCompleted = false) {
         this.feedbackMessage.innerText = message;
-        this.feedbackMessage.style.color = isWin ? '#00f2ff' : '#ff0055';
+        this.feedbackMessage.style.color = (isWin || isGameCompleted) ? '#00f2ff' : '#ff0055';
 
         this.feedbackOverlay.classList.remove('visible');
         void this.feedbackOverlay.offsetWidth; // trigger reflow
         this.feedbackOverlay.classList.add('visible');
 
-        if (isWin) {
+        // Reset Buttons
+        this.nextLevelBtn.classList.add('hidden');
+        this.retryBtn.classList.add('hidden');
+        const menuBtn = document.getElementById('menu-btn');
+        if (menuBtn) menuBtn.classList.remove('hidden'); // Always show Menu button
+
+        if (isGameCompleted) {
+            // Just Menu button (handled above)
+        } else if (isWin) {
             this.nextLevelBtn.classList.remove('hidden');
-            this.retryBtn.classList.add('hidden');
         } else if (isRetry) {
-            this.nextLevelBtn.classList.add('hidden');
             this.retryBtn.classList.remove('hidden');
-        } else {
-            // End game
-            this.nextLevelBtn.classList.add('hidden');
-            this.retryBtn.classList.add('hidden');
         }
     }
 

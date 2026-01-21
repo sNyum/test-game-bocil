@@ -423,3 +423,59 @@ button:active {
     background: white !important;
     font-weight: bold;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    body {
+        align-items: flex-start;
+        /* Better for tall content */
+        padding-top: 20px;
+    }
+
+    #game-container {
+        width: 95%;
+        height: 95vh;
+        /* Maximize height on mobile */
+        max-height: 950px;
+        padding: 15px;
+        border-radius: 20px;
+    }
+
+    #game-header {
+        padding: 10px 15px;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    #level-indicator {
+        font-size: 1rem;
+        padding: 5px 12px;
+    }
+
+    #lives-container {
+        font-size: 1.2rem;
+    }
+
+    #level-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 cols on mobile */
+        gap: 15px;
+    }
+
+    .level-btn {
+        width: 100%;
+        /* Stretch to grid */
+        aspect-ratio: 1;
+        /* Keep square */
+        height: auto;
+    }
+
+    .level-number {
+        font-size: 1.8rem;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+}
