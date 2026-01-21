@@ -127,9 +127,10 @@ class Level2 {
                 this.onWin();
             } else {
                 // Wrong answer logic
-                hint.innerText = "Wrong! Look closer...";
+                hint.innerText = "Wrong!";
                 input.classList.add('shake');
                 setTimeout(() => input.classList.remove('shake'), 500);
+                window.game.loseLife(); // Penalty for wrong guess
             }
         });
     }

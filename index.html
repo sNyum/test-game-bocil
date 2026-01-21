@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hide n Seek - Tricky Puzzles</title>
+    <title>Game Bocil - Tricky Puzzles</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -12,15 +12,49 @@
 <body>
     <div id="game-container">
         <header id="game-header">
-            <h1>Hide n Seek</h1>
-            <div id="level-indicator">Level: <span id="current-level-display">1</span></div>
+            <h1>Game Bocil</h1>
+            <div id="level-indicator">Select Level</div>
+            <div id="lives-container" style="visibility: hidden;">
+                <span class="heart">❤️</span>
+                <span class="heart">❤️</span>
+                <span class="heart">❤️</span>
+            </div>
         </header>
 
         <main id="game-area">
             <!-- Dynamic Content Loaded Here -->
             <div id="start-screen" class="active">
-                <h2>Ready for Tricky Puzzles?</h2>
-                <button id="start-btn" class="btn-primary">Start Game</button>
+                <h1>Game Bocil</h1>
+                <p class="subtitle">Tricky Puzzles</p>
+
+                <div id="level-grid">
+                    <button class="level-btn" onclick="game.openLevel(0)">
+                        <span class="level-number">1</span>
+                        <span class="level-icon">⚔️</span>
+                    </button>
+                    <button class="level-btn" onclick="game.openLevel(1)">
+                        <span class="level-number">2</span>
+                        <span class="level-icon">☀️</span>
+                    </button>
+                    <button class="level-btn" onclick="game.openLevel(2)">
+                        <span class="level-number">3</span>
+                        <span class="level-icon">🦉</span>
+                    </button>
+                    <button class="level-btn" onclick="game.openLevel(3)">
+                        <span class="level-number">4</span>
+                        <span class="level-icon">🔥</span>
+                    </button>
+                    <button class="level-btn" onclick="game.openLevel(4)">
+                        <span class="level-number">5</span>
+                        <span class="level-icon">🚗</span>
+                    </button>
+                    <button class="level-btn" onclick="game.openLevel(5)">
+                        <span class="level-number">6</span>
+                        <span class="level-icon">🔨</span>
+                    </button>
+                </div>
+
+                <p class="credits">Created by sNyum</p>
             </div>
 
             <div id="level-container"></div>
@@ -38,6 +72,10 @@
     <script src="js/game.js"></script>
     <script src="js/levels/level1.js"></script>
     <script src="js/levels/level2.js"></script>
+    <script src="js/levels/level3.js"></script>
+    <script src="js/levels/level4.js"></script>
+    <script src="js/levels/level5.js"></script>
+    <script src="js/levels/level6.js"></script>
 </body>
 
 </html>
