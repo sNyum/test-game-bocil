@@ -101,6 +101,7 @@ class Level7 {
             #bubbles-container {
                 flex: 1;
                 width: 100%;
+                height: 350px; /* Increased from default */
                 position: relative;
                 margin-top: 20px;
             }
@@ -160,7 +161,7 @@ class Level7 {
 
         bubbles.forEach(bubble => {
             Utils.makeDraggable(bubble, {
-                keepPosition: false,
+                keepPosition: true, /* Don't snap back */
                 getDropTargets: () => Array.from(document.querySelectorAll('.word-slot')), // Dynamic
                 onDragStart: (el) => {
                     el.style.animation = 'none'; // Stop floating
