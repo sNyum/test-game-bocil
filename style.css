@@ -54,17 +54,23 @@ body {
     font-family: var(--font-main);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    /* Changed from center for mobile */
     min-height: 100vh;
-    overflow: hidden;
+    overflow: auto;
+    /* Changed from hidden to allow scrolling */
+    padding: 10px 0;
+    /* Add padding for mobile */
 }
 
 #game-container {
     width: 100%;
     max-width: 800px;
-    height: 90vh;
+    min-height: 90vh;
+    /* Changed from height to min-height */
     background: var(--card-bg);
     backdrop-filter: blur(4px);
+    /* Reduced blur to see bubbles */
     -webkit-backdrop-filter: blur(4px);
     border-radius: 35px;
     border: var(--glass-border);
@@ -74,6 +80,8 @@ body {
     position: relative;
     box-shadow: var(--shadow-soft);
     z-index: 10;
+    margin: 10px;
+    /* Add margin for mobile */
 }
 
 #game-header {
@@ -482,9 +490,10 @@ button:active {
 
     #game-container {
         width: 95%;
-        height: 95vh;
-        /* Maximize height on mobile */
-        max-height: 950px;
+        min-height: 85vh;
+        /* Changed from height to min-height */
+        max-height: none;
+        /* Remove max-height restriction */
         padding: 15px;
         border-radius: 20px;
     }
