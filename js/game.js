@@ -79,9 +79,9 @@ class Game {
             const left = Math.random() * 100; // 0-100vw
             const duration = Math.random() * 5 + 5; // 5-10s
 
-            // Random Pastel Colors
+            // Random Vibrant Colors (Darker to see through glass)
             const hue = Math.random() * 360;
-            const color = `hsla(${hue}, 80%, 80%, 0.4)`;
+            const color = `hsla(${hue}, 100%, 40%, 0.6)`;
 
             bubble.style.width = `${size}px`;
             bubble.style.height = `${size}px`;
@@ -120,7 +120,7 @@ class Game {
         this.container.classList.add('active');
 
         // Logic to determine if level has lives
-        const hasLives = ![0, 4].includes(index);
+        const hasLives = ![0, 4, 10, 11].includes(index); // Level 1, 5, 11, 12 have no lives
         this.updateHeaderUI(index + 1, hasLives);
 
         // Cleanup old level

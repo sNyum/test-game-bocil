@@ -10,12 +10,23 @@
     --text-color: #4a4e69;
     /* Soft Dark Blue-Gray for contrast */
     --text-accent: #9a8c98;
-    --card-bg: rgba(255, 255, 255, 0.7);
-    /* Milky Glass */
+    --card-bg: rgba(255, 255, 255, 0.6);
+    /* Milky Glass - More transparent */
+
+    /* ... */
+
     --glass-border: 2px solid rgba(255, 255, 255, 0.9);
-    --font-main: 'Outfit', sans-serif;
+    --font-main: 'Fredoka', sans-serif;
     --shadow-soft: 0 8px 30px rgba(255, 143, 171, 0.25);
     --shadow-button: 0 4px 15px rgba(255, 143, 171, 0.35);
+}
+
+.polka-bubble {
+    position: fixed;
+    border-radius: 50%;
+    z-index: -1;
+    /* Behind game container */
+    pointer-events: none;
 }
 
 * {
@@ -53,8 +64,8 @@ body {
     max-width: 800px;
     height: 90vh;
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 35px;
     border: var(--glass-border);
     display: flex;
@@ -521,7 +532,8 @@ button:active {
 .polka-bubble {
     position: fixed;
     border-radius: 50%;
-    z-index: 1;
+    z-index: 0;
+    /* Behind game container */
     pointer-events: none;
     opacity: 0.6;
     animation: floatExpand linear forwards;
@@ -537,11 +549,13 @@ button:active {
     }
 
     10% {
-        opacity: 0.6;
+        opacity: 0.8;
+        /* Increased opacity slightly */
     }
 
     100% {
-        transform: translateY(-100px) scale(2) rotate(45deg);
+        transform: translateY(-120vh) scale(2) rotate(45deg);
+        /* Float all the way up */
         opacity: 0;
     }
 }
