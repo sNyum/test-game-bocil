@@ -31,7 +31,7 @@ class Level1 {
                     <div id="boss" class="character">👿</div>
                 </div>
                 
-                <div id="mid-spacer" style="height: 50px;"></div>
+                <div id="mid-spacer" style="height: 20px;"></div>
 
                 <div id="player-container">
                     <div id="hero" class="character draggable">😐</div>
@@ -84,6 +84,10 @@ class Level1 {
                 width: 100%;
                 max-width: 100%;
                 overflow-x: hidden;
+                overflow-y: auto; /* Allow scrolling if tall */
+                height: 100%;     /* Use full height */
+                justify-content: flex-start; /* Start from top */
+                padding-bottom: 20px;
             }
             .character {
                 font-size: 5rem;
