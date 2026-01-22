@@ -56,7 +56,8 @@ class Level2 {
             }
             #sky-container {
                 width: 100%;
-                height: 300px;
+                height: 40vh;
+                min-height: 250px;
                 background: linear-gradient(to bottom, #87CEEB, #E0F7FA);
                 border-radius: 15px;
                 position: relative;
@@ -84,8 +85,14 @@ class Level2 {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                touch-action: none;
             }
             @keyframes spin { 100% { transform: rotate(360deg); } }
+
+            @media (max-width: 600px) {
+                .sun { font-size: 2rem; }
+                .cloud { font-size: 4rem; width: 80px; height: 60px; }
+            }
             
             #input-area {
                 display: flex;

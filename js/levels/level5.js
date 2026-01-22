@@ -10,19 +10,26 @@ class Level5 {
             <div id="level5-area">
                 <h2>Park in the open spot!</h2>
                 <div id="parking-lot">
-                    <!-- Slots -->
-                    <div class="slot">1</div>
-                    <div class="slot">2</div>
-                    <div class="slot">3</div>
-                    <div class="slot reveal-slot">4</div> <!-- Hidden Answer -->
-                    <div class="slot">5</div>
-
-                    <!-- Cars covering slots -->
-                    <div class="car draggable" style="left: 10px; top: 10px;">🚗</div>
-                    <div class="car draggable" style="left: 110px; top: 10px;">🚙</div>
-                    <div class="car draggable" style="left: 210px; top: 10px;">🏎️</div>
-                    <div class="car draggable" style="left: 310px; top: 10px;">🚕</div> <!-- Covers 4 -->
-                    <div class="car draggable" style="left: 410px; top: 10px;">🚓</div>
+                    <div class="slot-container">
+                        <div class="slot">1</div>
+                        <div class="car draggable">🚗</div>
+                    </div>
+                    <div class="slot-container">
+                        <div class="slot">2</div>
+                        <div class="car draggable">🚙</div>
+                    </div>
+                    <div class="slot-container">
+                        <div class="slot">3</div>
+                        <div class="car draggable">🏎️</div>
+                    </div>
+                    <div class="slot-container">
+                        <div class="slot reveal-slot">4</div>
+                        <div class="car draggable">🚕</div>
+                    </div>
+                    <div class="slot-container">
+                        <div class="slot">5</div>
+                        <div class="car draggable">🚓</div>
+                    </div>
                 </div>
             </div>
         `;
@@ -38,32 +45,33 @@ class Level5 {
         style.innerHTML = `
             #level5-area { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
             #parking-lot {
-                width: 90%;
+                width: 95%;
                 display: flex;
-                position: relative;
+                flex-wrap: wrap;
                 justify-content: center;
                 gap: 10px;
                 margin-top: 50px;
-                height: 200px;
+                min-height: 200px;
+                position: relative;
             }
-            .slot {
+            .slot-container {
+                position: relative;
                 width: 80px;
                 height: 120px;
+            }
+            .slot {
+                width: 100%;
+                height: 100%;
                 border: 2px dashed rgba(255,255,255,0.5);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 font-size: 2rem;
                 color: rgba(255,255,255,0.5);
-                position: absolute; /* Stacked under cars */
-                top: 20px;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
-            /* Position slots manually to match cars */
-            .slot:nth-child(1) { left: 10px; }
-            .slot:nth-child(2) { left: 110px; }
-            .slot:nth-child(3) { left: 210px; }
-            .slot:nth-child(4) { left: 310px; }
-            .slot:nth-child(5) { left: 410px; }
 
             .car {
                 width: 80px;
@@ -73,9 +81,10 @@ class Level5 {
                 align-items: center;
                 justify-content: center;
                 cursor: grab;
-                position: absolute; /* Free move */
+                position: absolute; /* Draggable needs absolute usually, but initially lets put them on slots */
                 z-index: 10;
                 transition: transform 0.1s;
+                touch-action: none;
             }
             .car:active { cursor: grabbing; }
             
@@ -83,6 +92,15 @@ class Level5 {
                 cursor: pointer;
                 border-color: #00f2ff;
                 color: #00f2ff;
+            }
+
+            @media (max-width: 600px) {
+                 .slot-container, .slot, .car {
+                     width: 60px;
+                     height: 90px;
+                     font-size: 3rem;
+                 }
+                 .slot { font-size: 1.5rem; }
             }
         `;
         this.container.appendChild(style);

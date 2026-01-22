@@ -82,6 +82,8 @@ class Level1 {
                 align-items: center;
                 gap: 10px;
                 width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
             }
             .character {
                 font-size: 5rem;
@@ -89,6 +91,7 @@ class Level1 {
                 position: relative;
                 cursor: grab;
                 z-index: 10;
+                touch-action: none;
             }
             #boss { transform: scale(1.5); margin-top: 10px; }
             
@@ -118,7 +121,7 @@ class Level1 {
                 padding: 20px;
                 border-radius: 15px;
                 margin-top: 20px;
-                min-width: 300px;
+                width: 95%;
                 min-height: 100px;
             }
             .item {
@@ -130,6 +133,7 @@ class Level1 {
                 justify-content: center;
                 cursor: grab;
                 transition: transform 0.2s;
+                touch-action: none;
             }
             .item:hover { transform: scale(1.1); }
 
@@ -137,6 +141,14 @@ class Level1 {
             .hero-aura {
                 animation: pulseGold 1.5s infinite alternate;
                 filter: drop-shadow(0 0 20px #ffd700);
+            }
+
+            @media (max-width: 600px) {
+                .character { font-size: 3.5rem; }
+                #boss { transform: scale(1.3); }
+                .item { font-size: 3rem; width: 60px; height: 60px; }
+                .big-num { font-size: 1.5rem; }
+                #items-shelf { gap: 10px; padding: 10px; }
             }
         `;
         this.container.appendChild(style);

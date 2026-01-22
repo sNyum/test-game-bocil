@@ -32,7 +32,8 @@ class Level4 {
             #level4-area { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
             #fire-container {
                 width: 100%;
-                height: 400px;
+                height: 50vh;
+                min-height: 300px;
                 position: relative;
             }
             .fire {
@@ -41,8 +42,13 @@ class Level4 {
                 cursor: grab;
                 transition: transform 0.2s, font-size 0.3s;
                 user-select: none;
+                touch-action: none;
             }
             .fire:active { cursor: grabbing; }
+
+            @media (max-width: 600px) {
+                .fire { font-size: 3rem; }
+            }
         `;
         this.container.appendChild(style);
     }

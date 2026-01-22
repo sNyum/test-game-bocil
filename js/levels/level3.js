@@ -29,10 +29,12 @@ class Level3 {
         const style = document.createElement('style');
         style.id = 'l3-style';
         style.innerHTML = `
-            #level3-area { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
+            #level3-area { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; position: relative; }
             #sky {
                 width: 90%;
-                height: 300px;
+                height: 40vh;
+                min-height: 250px;
+                max-height: 400px;
                 background: #87CEEB; /* Day blue */
                 border-radius: 15px;
                 position: relative;
@@ -52,6 +54,7 @@ class Level3 {
                 cursor: grab;
                 transition: transform 0.1s;
                 z-index: 10;
+                touch-action: none;
             }
             #owl-container {
                 position: absolute;
@@ -59,16 +62,19 @@ class Level3 {
                 left: 50%;
                 transform: translateX(-50%);
                 text-align: center;
+                pointer-events: none; /* Let clicks pass to children */
             }
             #owl {
                 font-size: 6rem;
                 transition: all 0.5s;
                 cursor: pointer;
+                pointer-events: auto;
             }
             #branch {
                 font-size: 4rem;
                 margin-top: -30px;
                 cursor: pointer;
+                pointer-events: auto;
             }
             #alarm {
                 font-size: 3rem;
@@ -77,8 +83,17 @@ class Level3 {
                 right: 20px;
                 cursor: pointer;
                 transition: transform 0.1s;
+                touch-action: none;
             }
-        `;
+
+            /* Mobile Responsiveness */
+            @media (max-width: 600px) {
+                #sun { font-size: 3.5rem; top: 10px; right: 10px; }
+                #owl { font-size: 4.5rem; }
+                #branch { font-size: 3rem; margin-top: -20px; }
+                #alarm { font-size: 2.5rem; bottom: 10px; right: 10px; }
+                #sky { height: 35vh; }
+            }        `;
         this.container.appendChild(style);
     }
 

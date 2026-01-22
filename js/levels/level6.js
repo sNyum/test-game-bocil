@@ -41,6 +41,7 @@ class Level6 {
                 background: #5d4037;
                 padding: 20px;
                 border-radius: 20px;
+                max-width: 95%;
             }
             .hole {
                 width: 80px;
@@ -72,6 +73,20 @@ class Level6 {
             .mole.hit {
                 filter: grayscale(100%) brightness(1.5);
                 transform: scale(0.9) translateY(0);
+            }
+
+            @media (max-width: 600px) {
+                #hole-grid {
+                    gap: 10px;
+                    padding: 10px;
+                }
+                .hole {
+                    width: 60px;
+                    height: 60px;
+                }
+                .mole {
+                    font-size: 2.5rem;
+                }
             }
         `;
         this.container.appendChild(style);
