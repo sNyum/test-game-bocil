@@ -65,11 +65,46 @@ class Game {
                 this.returnToMenu();
             });
         }
+
+        this.initBackground();
+    }
+
+    initBackground() {
+        setInterval(() => {
+            const bubble = document.createElement('div');
+            bubble.classList.add('polka-bubble');
+
+            // Random Properties
+            const size = Math.random() * 50 + 20; // 20-70px
+            const left = Math.random() * 100; // 0-100vw
+            const duration = Math.random() * 5 + 5; // 5-10s
+
+            // Random Pastel Colors
+            const hue = Math.random() * 360;
+            const color = `hsla(${hue}, 80%, 80%, 0.4)`;
+
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${left}vw`;
+            bubble.style.bottom = `-100px`; // Start below screen
+            bubble.style.backgroundColor = color;
+            bubble.style.animationDuration = `${duration}s`;
+
+            document.body.appendChild(bubble); // Append to body, behind game container
+
+            // Cleanup
+            setTimeout(() => {
+                bubble.remove();
+            }, duration * 1000);
+
+        }, 800); // New bubble every 800ms
     }
 
     registerLevel(levelClass) {
         this.levels.push(levelClass);
     }
+
+    // ... rest of the file
 
     async startLevel(index) {
         // If index is out of bounds (completed game)

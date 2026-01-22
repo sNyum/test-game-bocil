@@ -27,31 +27,60 @@
                 <h1>Game Bocil</h1>
                 <p class="subtitle">Tricky Puzzles</p>
 
-                <div id="level-grid">
-                    <button class="level-btn" onclick="game.openLevel(0)">
-                        <span class="level-number">1</span>
-                        <span class="level-icon">⚔️</span>
-                    </button>
-                    <button class="level-btn" onclick="game.openLevel(1)">
-                        <span class="level-number">2</span>
-                        <span class="level-icon">☀️</span>
-                    </button>
-                    <button class="level-btn" onclick="game.openLevel(2)">
-                        <span class="level-number">3</span>
-                        <span class="level-icon">🦉</span>
-                    </button>
-                    <button class="level-btn" onclick="game.openLevel(3)">
-                        <span class="level-number">4</span>
-                        <span class="level-icon">🔥</span>
-                    </button>
-                    <button class="level-btn" onclick="game.openLevel(4)">
-                        <span class="level-number">5</span>
-                        <span class="level-icon">🚗</span>
-                    </button>
-                    <button class="level-btn" onclick="game.openLevel(5)">
-                        <span class="level-number">6</span>
-                        <span class="level-icon">🔨</span>
-                    </button>
+                <div id="level-slider">
+                    <!-- Page 1 -->
+                    <div class="level-page active-page" id="page-1">
+                        <button class="level-btn" onclick="game.openLevel(0)">
+                            <span class="level-number">1</span>
+                            <span class="level-icon">⚔️</span>
+                        </button>
+                        <button class="level-btn" onclick="game.openLevel(1)">
+                            <span class="level-number">2</span>
+                            <span class="level-icon">☀️</span>
+                        </button>
+                        <button class="level-btn" onclick="game.openLevel(2)">
+                            <span class="level-number">3</span>
+                            <span class="level-icon">🦉</span>
+                        </button>
+                        <button class="level-btn" onclick="game.openLevel(3)">
+                            <span class="level-number">4</span>
+                            <span class="level-icon">🔥</span>
+                        </button>
+                        <button class="level-btn" onclick="game.openLevel(4)">
+                            <span class="level-number">5</span>
+                            <span class="level-icon">🚗</span>
+                        </button>
+                        <button class="level-btn" onclick="game.openLevel(5)">
+                            <span class="level-number">6</span>
+                            <span class="level-icon">🔨</span>
+                        </button>
+                        <button class="level-btn" onclick="game.openLevel(6)">
+                            <span class="level-number">7</span>
+                            <span class="level-icon">🔤</span>
+                        </button>
+                        <button class="level-btn" onclick="game.openLevel(7)">
+                            <span class="level-number">8</span>
+                            <span class="level-icon">🧪</span>
+                        </button>
+                        <button class="level-btn" onclick="game.openLevel(8)">
+                            <span class="level-number">9</span>
+                            <span class="level-icon">🎂</span>
+                        </button>
+                    </div>
+
+                    <!-- Page 2 -->
+                    <div class="level-page" id="page-2" style="display: none;">
+                        <button class="level-btn" onclick="game.openLevel(9)">
+                            <span class="level-number">10</span>
+                            <span class="level-icon">🐢</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="pagination-controls">
+                    <button id="prev-page" class="nav-arrow" onclick="changePage(-1)"
+                        style="visibility: hidden;">❮</button>
+                    <button id="next-page" class="nav-arrow" onclick="changePage(1)">❯</button>
                 </div>
 
                 <p class="credits">Created by sNyum</p>
@@ -77,6 +106,40 @@
     <script src="js/levels/level4.js"></script>
     <script src="js/levels/level5.js"></script>
     <script src="js/levels/level6.js"></script>
+    <script src="js/levels/level7.js"></script>
+    <script src="js/levels/level8.js"></script>
+    <script src="js/levels/level9.js"></script>
+    <script src="js/levels/level10.js"></script>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 2;
+
+        function changePage(direction) {
+            // Hide current
+            document.getElementById(`page-${currentPage}`).style.display = 'none';
+            document.getElementById(`page-${currentPage}`).classList.remove('active-page');
+
+            // Update index
+            currentPage += direction;
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            // Show new
+            document.getElementById(`page-${currentPage}`).style.display = 'grid'; // Grid layout
+            document.getElementById(`page-${currentPage}`).classList.add('active-page');
+
+            updateArrows();
+        }
+
+        function updateArrows() {
+            const prev = document.getElementById('prev-page');
+            const next = document.getElementById('next-page');
+
+            prev.style.visibility = currentPage === 1 ? 'hidden' : 'visible';
+            next.style.visibility = currentPage === totalPages ? 'hidden' : 'visible';
+        }
+    </script>
 </body>
 
 </html>
