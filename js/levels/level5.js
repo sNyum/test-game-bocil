@@ -43,7 +43,16 @@ class Level5 {
         const style = document.createElement('style');
         style.id = 'l5-style';
         style.innerHTML = `
-            #level5-area { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
+            #level5-area { 
+                width: 100%; 
+                height: 100%; 
+                display: flex; 
+                flex-direction: column; 
+                align-items: center;
+                overflow-y: auto; /* Enable scrolling */
+                overflow-x: hidden;
+                padding-bottom: 20px;
+            }
             #parking-lot {
                 width: 95%;
                 display: flex;
@@ -53,6 +62,7 @@ class Level5 {
                 margin-top: 50px;
                 min-height: 200px;
                 position: relative;
+                padding-bottom: 40px; /* Extra space for scrolling */
             }
             .slot-container {
                 position: relative;
@@ -95,6 +105,7 @@ class Level5 {
             }
 
             @media (max-width: 600px) {
+                 #parking-lot { margin-top: 20px; gap: 5px; } 
                  .slot-container, .slot, .car {
                      width: 60px;
                      height: 90px;

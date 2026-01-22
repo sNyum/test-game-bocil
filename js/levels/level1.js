@@ -23,21 +23,23 @@ class Level1 {
     async init() {
         this.container.innerHTML = `
             <div id="level1-area">
-                <div id="boss-container">
-                    <div id="boss-stats" class="stats-box red">
-                        <span>BOSS POWER</span>
-                        <h2 class="big-num shake-constant">${this.formatNum(this.bossPower)}</h2>
+                <div id="battle-arena">
+                    <div id="boss-container">
+                        <div id="boss-stats" class="stats-box red">
+                            <span>BOSS POWER</span>
+                            <h2 class="big-num shake-constant">${this.formatNum(this.bossPower)}</h2>
+                        </div>
+                        <div id="boss" class="character">👿</div>
                     </div>
-                    <div id="boss" class="character">👿</div>
-                </div>
-                
-                <div id="mid-spacer" style="height: 20px;"></div>
+                    
+                    <div id="separator">VS</div>
 
-                <div id="player-container">
-                    <div id="hero" class="character draggable">😐</div>
-                    <div id="hero-stats" class="stats-box">
-                        <span>YOUR POWER</span>
-                        <h2 id="hero-power-num" class="big-num">${this.formatNum(this.powerLevel)}</h2>
+                    <div id="player-container">
+                        <div id="hero" class="character draggable">😐</div>
+                        <div id="hero-stats" class="stats-box">
+                            <span>YOUR POWER</span>
+                            <h2 id="hero-power-num" class="big-num">${this.formatNum(this.powerLevel)}</h2>
+                        </div>
                     </div>
                 </div>
 
@@ -84,10 +86,16 @@ class Level1 {
                 width: 100%;
                 max-width: 100%;
                 overflow-x: hidden;
-                overflow-y: auto; /* Allow scrolling if tall */
-                height: 100%;     /* Use full height */
-                justify-content: flex-start; /* Start from top */
+                overflow-y: auto;
+                height: 100%;
                 padding-bottom: 20px;
+            }
+            #battle-arena {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                width: 100%;
             }
             .character {
                 font-size: 5rem;
@@ -98,6 +106,7 @@ class Level1 {
                 touch-action: none;
             }
             #boss { transform: scale(1.5); margin-top: 10px; }
+            #separator { display: none; font-weight: bold; font-size: 2rem; color: #ff0055; }
             
             .stats-box {
                 text-align: center;
@@ -148,11 +157,32 @@ class Level1 {
             }
 
             @media (max-width: 600px) {
-                .character { font-size: 3.5rem; }
-                #boss { transform: scale(1.3); }
-                .item { font-size: 3rem; width: 60px; height: 60px; }
-                .big-num { font-size: 1.5rem; }
-                #items-shelf { gap: 10px; padding: 10px; }
+                #battle-arena {
+                    flex-direction: row; /* Side-by-side on mobile */
+                    justify-content: space-around;
+                    align-items: center;
+                }
+                #boss-container, #player-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 45%;
+                }
+                /* Swap order: Character on top, stats on bottom for hero too */
+                #player-container { flex-direction: column-reverse; } 
+                #boss-container { flex-direction: column; }
+
+                .character { font-size: 3rem; }
+                #boss { transform: scale(1); margin-top: 0; }
+                
+                #separator { display: block; font-size: 1.5rem; }
+
+                .stats-box { padding: 5px 10px; border-width: 1px; }
+                .stats-box span { font-size: 0.7rem; }
+                .big-num { font-size: 1.1rem; }
+
+                .item { font-size: 2.5rem; width: 50px; height: 50px; }
+                #items-shelf { gap: 10px; padding: 10px; margin-top: 10px; }
             }
         `;
         this.container.appendChild(style);
